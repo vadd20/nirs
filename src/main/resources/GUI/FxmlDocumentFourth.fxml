@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="350" prefWidth="402.0" style="-fx-background-color: #58b367;"
+            xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="GUI.FxmlControllerFourth">
+    <children>
+        <!-- Выбор файла -->
+        <Label layoutX="16.0" layoutY="14.0" text="Выберете файл .wav" textFill="#fcfcfc"/>
+        <Button fx:id="button_select" layoutX="11.0" layoutY="31.0" onAction="#open" prefHeight="40.0" prefWidth="70.0"
+                text="Открыть"/>
+        <Button fx:id="buttonClose" layoutX="104.0" layoutY="31.0" maxWidth="200" onAction="#clickClose"
+                prefHeight="40.0" prefWidth="70.0" text="Закрыть"/>
+        <!-- Эквалайзер -->
+        <Label layoutX="18.0" layoutY="83.0" text="Эквалайзер" textFill="#fefefe"/>
+        <HBox layoutX="20.0" layoutY="108.0" prefHeight="17.0" prefWidth="80.0">
+            <children>
+                <Label prefHeight="17.0" prefWidth="83.0" text="9724-20k Hz" textFill="#fefefe"/>
+            </children>
+        </HBox>
+        <HBox layoutX="27.0" layoutY="131.0" prefHeight="80" prefWidth="109.0">
+            <children>
+                <Slider fx:id="Slider7" max="1" min="0.00025" orientation="VERTICAL" prefWidth="60"
+                        showTickLabels="true" showTickMarks="true"/>
+                <Label prefWidth="60" text="" textFill="#fefefe"/>
+            </children>
+        </HBox>
+        <HBox layoutX="5.0" layoutY="200.0" prefHeight="50" prefWidth="720">
+            <children>
+                <Label fx:id="Label7" prefWidth="120" textFill="WHITE"/>
+            </children>
+        </HBox>
+
+        <!-- Панель управления воспроизведением -->
+        <Label layoutX="17.0" layoutY="250.0" text="Панель управления" textFill="#fefefe"/>
+        <Button fx:id="button_play" layoutX="14.0" layoutY="282.0" onAction="#play" prefHeight="40.0" prefWidth="60.0"/>
+        <Button fx:id="button_pause" layoutX="84.0" layoutY="282.0" onAction="#pause" prefHeight="40.0"
+                prefWidth="60.0"/>
+        <Button fx:id="button_stop" layoutX="157.0" layoutY="282.0" onAction="#stop" prefHeight="40.0"
+                prefWidth="60.0"/>
+
+    </children>
+</AnchorPane>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="250.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.FxmlControllerSecond">
+    <children>
+        <Label layoutX="30" layoutY="20" text="Выбрать файл .wav" textFill="#fcfcfc"/>
+        <Button fx:id="button_select" layoutX="30.0" layoutY="50.0" onAction="#open" prefHeight="40" prefWidth="140"
+                text="Открыть"/>
+
+        <Label layoutX="30" layoutY="110" text="Управление воспроизведением" textFill="#fefefe"/>
+        <Button fx:id="button_play" layoutX="30.0" layoutY="140.0" onAction="#play" prefHeight="40" prefWidth="80"/>
+        <Button fx:id="button_pause" layoutX="145.0" layoutY="140.0" onAction="#pause" prefHeight="40" prefWidth="80"/>
+        <Button fx:id="button_stop" layoutX="260.0" layoutY="140.0" onAction="#stop" prefHeight="40" prefWidth="80"/>
+
+        <Button fx:id="buttonClose" layoutX="200.0" layoutY="50.0" onAction="#clickClose" prefHeight="40"
+                prefWidth="140" text="Закрыть программу"/>
+    </children>
+</AnchorPane>

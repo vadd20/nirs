@@ -90,6 +90,12 @@ public class FxmlControllerThird implements Initializable {
         System.exit(0);
     }
 
+    @FXML
+    private void IirBox() {
+        System.out.println("Change Filter");
+        //TODO: переделать
+    }
+
     private void resetSliders() {
         Platform.runLater(() -> {
             Slider0.setValue(1);
@@ -102,7 +108,5 @@ public class FxmlControllerThird implements Initializable {
             Label0.setText(str);
             audioPlayer.getEqualizer().getFilter(0).setGain(newValue.doubleValue());
         });
-
-
     }
 }

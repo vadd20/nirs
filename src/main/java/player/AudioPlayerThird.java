@@ -3,7 +3,6 @@ package player;
 import effect.Clipping;
 import effect.Delay;
 import equalizer.EqualizerThirdApp;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -20,7 +19,7 @@ public class AudioPlayerThird {
     private final File currentMusicFile;
     private AudioInputStream audioStream;
     private SourceDataLine sourceDataLine;
-    public static final int BUFF_SIZE = 100000;
+    public static final int BUFF_SIZE = 10000;
     private final byte[] bufferBytes = new byte[BUFF_SIZE];
     private short[] bufferShort = new short[BUFF_SIZE / 2];
     private boolean pauseStatus;

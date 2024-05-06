@@ -44,13 +44,13 @@ public class EqualizerThirdApp {
         for (int i = 0; i < this.outputSignal.length; i++) {
             this.outputSignal[i] += (short) (
                     fs[0].get()[i] +
-                    fs[1].get()[i] +
-                    fs[2].get()[i] +
-                    fs[3].get()[i] +
-                    fs[4].get()[i] +
-                    fs[5].get()[i] +
-                    fs[6].get()[i] +
-                    fs[7].get()[i]);
+                            fs[1].get()[i] +
+                            fs[2].get()[i] +
+                            fs[3].get()[i] +
+                            fs[4].get()[i] +
+                            fs[5].get()[i] +
+                            fs[6].get()[i] +
+                            fs[7].get()[i]);
         }
     }
 

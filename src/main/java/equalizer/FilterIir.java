@@ -5,47 +5,34 @@ import java.util.concurrent.Callable;
 public class FilterIir implements Callable<short[]> {
     private short[] inputSignal;
     private short[] outputSignal;
-    private short[] feedbackSignal; // Добавлено для хранения обратной связи
+    private double[] feedbackSignal;
     private double gain;
-    private double[] filterCoeffs; // коэффициенты прямой связи
-    private double[] feedbackCoeffs; // коэффициенты обратной связи
-    private int coeffsNumber;
+    private double[] coffsNumFilter;
+    private double[] coffsDenFilter;
+    private int count_coffs;
 
-    public void settings(final short[] inputSignal, final double[] filterCoeffs, final double[] feedbackCoeffs) {
+    public void settings(final short[] inputSignal, final double[] coffsNumFilter, final double[] coffsDenFilter) {
         this.inputSignal = inputSignal;
-        this.filterCoeffs = filterCoeffs;
-        this.feedbackCoeffs = feedbackCoeffs;
+        this.coffsNumFilter = coffsNumFilter;
+        this.coffsDenFilter = coffsDenFilter;
         this.outputSignal = new short[inputSignal.length];
-        this.feedbackSignal = new short[inputSignal.length]; // Инициализация с тем же размером
-        this.coeffsNumber = filterCoeffs.length;
+        this.count_coffs = coffsNumFilter.length;
+        this.feedbackSignal =  new double[inputSignal.length];
+
     }
 
     private void convolution() {
         double tmp;
         for(int i = 0; i <  this.inputSignal.length; i++) {
             tmp = 0;
-            for(int j = 0; j < this.coeffsNumber; j++) {
-                if(i - j >= 0)
-                    tmp += filterCoeffs[j] * this.inputSignal[i - j];
-            }
-            this.outputSignal[i] += (short) (this.gain * (short)(tmp / 8)); //делим на 8, чтобы не было перегруза на пересечении фильтров
-        }
-    }
-
-    private void convolutionIir() {
-        double tmp;
-        for(int i = 0; i < this.inputSignal.length; i++) {
-            tmp = 0;
-            for(int j = 0; j < coeffsNumber; j++) {
+            for(int j = 0; j < this.count_coffs; j++) {
                 if (i - j >= 0) {
-                    tmp += filterCoeffs[j] * this.inputSignal[i - j];
-                    if (j < feedbackCoeffs.length) {
-                        tmp -= feedbackCoeffs[j] * this.feedbackSignal[i - j];
-                    }
+                    tmp += coffsNumFilter[j] * this.inputSignal[i - j];
+                    tmp -= this.coffsDenFilter[j] * this.feedbackSignal[i - j];
                 }
             }
-            this.feedbackSignal[i] = (short)tmp;
-            this.outputSignal[i] = (short)(tmp * gain); // Умножение на gain для регулировки громкости
+            this.feedbackSignal[i] = tmp;
+            this.outputSignal[i] += this.gain * (short)(tmp / 8); //делим на 8, чтобы не было перегруза на пересечении фильтров
         }
     }
 

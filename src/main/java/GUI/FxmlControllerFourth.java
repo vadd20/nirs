@@ -27,7 +27,6 @@ public class FxmlControllerFourth implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.listenSliders();
-//        this.gainFromSlider();
     }
 
     @FXML
@@ -90,6 +89,11 @@ public class FxmlControllerFourth implements Initializable {
         System.exit(0);
     }
 
+    @FXML
+    private void IirBox() {
+        System.out.println("Change Filter");
+
+    }
 
     private void resetSliders() {
         Platform.runLater(() -> {
@@ -101,7 +105,7 @@ public class FxmlControllerFourth implements Initializable {
         Slider7.valueProperty().addListener((observable, oldValue, newValue) -> {
             String str = String.format("%.3f", (newValue.doubleValue()));
             Label7.setText(str);
-            audioPlayer.getEqualizer().getFilter(0).setGain(newValue.doubleValue());
+            audioPlayer.getEqualizer().getFilter(7).setGain(newValue.doubleValue());
         });
 
     }

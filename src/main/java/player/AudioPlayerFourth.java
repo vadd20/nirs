@@ -20,7 +20,7 @@ public class AudioPlayerFourth {
     private final File currentMusicFile;
     private AudioInputStream audioStream;
     private SourceDataLine sourceDataLine;
-    public static final int BUFF_SIZE = 100000;
+    public static final int BUFF_SIZE = 10000;
     private final byte[] bufferBytes = new byte[BUFF_SIZE];
     private short[] bufferShort = new short[BUFF_SIZE / 2];
     private boolean pauseStatus;

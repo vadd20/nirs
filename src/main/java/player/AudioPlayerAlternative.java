@@ -33,7 +33,7 @@ public class AudioPlayerAlternative {
     private volatile boolean isPaused;
     private volatile boolean isStopped;
     private Thread playThread;
-    public static final int BUFF_SIZE_BYTES = 4;
+    public static final int BUFF_SIZE_BYTES = 4096; //Todo
     private final AlternativeBuffer buffer;
 
     public AudioPlayerAlternative(File musicFile) {

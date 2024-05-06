@@ -20,9 +20,9 @@ public class FXMLDocumentController implements Initializable {
     private AudioPlayer audioPlayer;
     private Thread playThread;
     @FXML
-    private Slider Slider0, Slider1, Slider2, Slider3, Slider4, Slider5, soundSlider;
+    private Slider Slider0, Slider1, Slider2, Slider3, Slider4, Slider5, Slider6, Slider7,soundSlider;
     @FXML
-    private Label Label0, Label1, Label2, Label3, Label4, Label5;
+    private Label Label0, Label1, Label2, Label3, Label4, Label5, Label6, Label7;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -92,13 +92,13 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void DelayBox() {
-        System.out.println("Delay on/off");
+        System.out.println("Реверберация on/off");
         audioPlayer.setDelayEnabled(!audioPlayer.isDelayEnabled());
     }
 
     @FXML
     private void ClippingBox() {
-        System.out.println("Clipping on/off");
+        System.out.println("Енвелоп on/off");
         audioPlayer.setClippingEnabled(!audioPlayer.isClippingEnabled());
     }
 
@@ -117,6 +117,8 @@ public class FXMLDocumentController implements Initializable {
             Slider3.setValue(1);
             Slider4.setValue(1);
             Slider5.setValue(1);
+            Slider6.setValue(1);
+            Slider7.setValue(1);
             updateFilters(); // Обновить значения фильтров
         });
     }
@@ -129,6 +131,8 @@ public class FXMLDocumentController implements Initializable {
         audioPlayer.getEqualizer().getFilter(3).setGain(Slider3.getValue());
         audioPlayer.getEqualizer().getFilter(4).setGain(Slider4.getValue());
         audioPlayer.getEqualizer().getFilter(5).setGain(Slider5.getValue());
+        audioPlayer.getEqualizer().getFilter(6).setGain(Slider6.getValue());
+        audioPlayer.getEqualizer().getFilter(7).setGain(Slider7.getValue());
     }
 
     private void resetSliders() {
@@ -139,6 +143,8 @@ public class FXMLDocumentController implements Initializable {
             Slider3.setValue(1);
             Slider4.setValue(1);
             Slider5.setValue(1);
+            Slider6.setValue(1);
+            Slider7.setValue(1);
             soundSlider.setValue(1);
         });
     }
@@ -207,6 +213,26 @@ public class FXMLDocumentController implements Initializable {
                 audioPlayer.getEqualizer().getFilter(5).setGain(newValue.doubleValue());
             } else {
                 audioPlayer.getEqualizer().getFilterIir(5).setGain(newValue.doubleValue());
+            }
+        });
+
+        Slider6.valueProperty().addListener((observable, oldValue, newValue) -> {
+            String str = String.format("%.3f", (newValue.doubleValue()));
+            Label6.setText(str);
+            if (!AudioPlayer.isIirEnabled) {
+                audioPlayer.getEqualizer().getFilter(6).setGain(newValue.doubleValue());
+            } else {
+                audioPlayer.getEqualizer().getFilterIir(6).setGain(newValue.doubleValue());
+            }
+        });
+
+        Slider7.valueProperty().addListener((observable, oldValue, newValue) -> {
+            String str = String.format("%.3f", (newValue.doubleValue()));
+            Label7.setText(str);
+            if (!AudioPlayer.isIirEnabled) {
+                audioPlayer.getEqualizer().getFilter(7).setGain(newValue.doubleValue());
+            } else {
+                audioPlayer.getEqualizer().getFilterIir(7).setGain(newValue.doubleValue());
             }
         });
     }

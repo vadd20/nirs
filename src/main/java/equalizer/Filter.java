@@ -18,7 +18,7 @@ public class Filter implements Callable<short[]> {
 
     private void convolution() {
         double tmp;
-        for(int i = 0; i <  this.inputSignal.length; i++) {
+        for(int i = 0; i < this.inputSignal.length; i++) {
             tmp = 0;
             for(int j = 0; j < this.count_coffs; j++) {
                 if(i - j >= 0)

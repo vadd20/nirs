@@ -3,7 +3,7 @@ package effect;
 import java.util.concurrent.Callable;
 
 public class Delay extends Effect implements Callable<short[]> {
-    private static final double RATIO_DRY_TO_WET = 0.7;
+    private static final double RATIO_DRY_TO_WET = 0.4; //todo
     public static final int DEFAULT_SIZE_BUFFER = 3;
     public BufferSample BufferSample;
 

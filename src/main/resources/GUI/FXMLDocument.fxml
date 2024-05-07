@@ -69,7 +69,7 @@
 
         <!-- Панель эффектов -->
         <Label layoutX="46.0" layoutY="350.0" text="Панель эффектов" textFill="#fefefe" />
-        <CheckBox layoutX="50.0" layoutY="385.0" onAction="#ClippingBox" text="Енвелоп" textFill="#fefefe" />
+        <CheckBox layoutX="50.0" layoutY="385.0" onAction="#EnvelopeBox" text="Энвелоп" textFill="#fefefe" />
         <CheckBox layoutX="140.0" layoutY="385.0" onAction="#DelayBox" text="Реверберация" textFill="#fefefe" />
         <CheckBox layoutX="260.0" layoutY="385.0" onAction="#IirBox" text="Бих Фильтр" textFill="#fefefe" />
     </children>

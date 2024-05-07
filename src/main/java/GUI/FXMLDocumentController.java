@@ -97,9 +97,11 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void ClippingBox() {
+    private void EnvelopeBox() {
         System.out.println("Енвелоп on/off");
-        audioPlayer.setClippingEnabled(!audioPlayer.isClippingEnabled());
+        if (!this.audioPlayer.EnvelopeIsActive())
+            this.audioPlayer.setEnvelope(true);
+        else this.audioPlayer.setEnvelope(false);
     }
 
     @FXML

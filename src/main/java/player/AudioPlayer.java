@@ -1,8 +1,9 @@
 package player;
 
-import effect.Clipping;
 import effect.Delay;
+import effect.Envelope;
 import equalizer.Equalizer;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -27,9 +28,12 @@ public class AudioPlayer {
     private double gain;
     private final Equalizer equalizer;
     private final Delay delay;
-    private final Clipping clipping;
-    private boolean clippingEnabled = false;
+    //    private final Clipping clipping;
+    private final Envelope Envelope;
+    private boolean isEnvelope;
+    //    private boolean clippingEnabled = false;
     private boolean delayEnabled = false;
+    private boolean envelopeEnabled = false;
     public static boolean isIirEnabled = false;
 
     public void setIirEnabled(boolean iirEnabled) {
@@ -50,23 +54,41 @@ public class AudioPlayer {
         this.equalizer = new Equalizer();
         this.gain = 1.0;
         this.delay = new Delay();
-        this.clipping = new Clipping();
+//        this.clipping = new Clipping();
+        this.isEnvelope = false;
+        this.Envelope = new Envelope();
     }
 
     public Delay getDelay() {
         return delay;
     }
 
-    public Clipping getClipping() {
-        return clipping;
+    //    public Clipping getClipping() {
+//        return clipping;
+//    }
+
+
+//    public boolean isClippingEnabled() {
+//        return clippingEnabled;
+//    }
+
+
+//    public void setClippingEnabled(boolean clippingEnabled) {
+//        this.clippingEnabled = clippingEnabled;
+//    }
+
+    private void Envelope(short[] inputSamples) throws ExecutionException,
+            InterruptedException {
+        Envelope.setInputSampleStream(inputSamples);
+        Envelope.createEffect();
     }
 
-    public boolean isClippingEnabled() {
-        return clippingEnabled;
+    public boolean EnvelopeIsActive() {
+        return this.isEnvelope;
     }
 
-    public void setClippingEnabled(boolean clippingEnabled) {
-        this.clippingEnabled = clippingEnabled;
+    public void setEnvelope(boolean b) {
+        this.isEnvelope = b;
     }
 
     public boolean isDelayEnabled() {
@@ -109,10 +131,15 @@ public class AudioPlayer {
                 }
 
 
-                // Применение эффекта клиппинга
-                if (clippingEnabled) { // clippingEnabled проверяет состояние соответствующего чекбокса
-                    this.bufferShort = clipping.applyClipping(this.bufferShort, MAX_AMPLITUDE);
+//                // Применение эффекта клиппинга
+//                if (clippingEnabled) { // clippingEnabled проверяет состояние соответствующего чекбокса
+//                    this.bufferShort = clipping.applyClipping(this.bufferShort, MAX_AMPLITUDE);
+//                }
+
+                if (this.isEnvelope) {
+                    this.Envelope(this.bufferShort);
                 }
+
 
                 this.ShortArrayToByteArray();
                 this.sourceDataLine.write(this.bufferBytes, 0, this.bufferBytes.length);

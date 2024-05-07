@@ -79,8 +79,8 @@ public class AudioPlayer {
 
     private void Envelope(short[] inputSamples) throws ExecutionException,
             InterruptedException {
-        Envelope.setInputSampleStream(inputSamples);
-        Envelope.createEffect();
+        this.Envelope.setInputSampleStream(inputSamples);
+        this.Envelope.createEffect();
     }
 
     public boolean EnvelopeIsActive() {

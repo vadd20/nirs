@@ -20,9 +20,9 @@ public class FXMLDocumentController implements Initializable {
     private AudioPlayer audioPlayer;
     private Thread playThread;
     @FXML
-    private Slider Slider0, Slider1, Slider2, Slider3, Slider4, Slider5, Slider6, Slider7,soundSlider;
+    private Slider Slider0, Slider1, Slider2, Slider3, Slider4, Slider5, Slider6, Slider7, Slider8, Slider9, soundSlider;
     @FXML
-    private Label Label0, Label1, Label2, Label3, Label4, Label5, Label6, Label7;
+    private Label Label0, Label1, Label2, Label3, Label4, Label5, Label6, Label7, Label8, Label9;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -121,6 +121,8 @@ public class FXMLDocumentController implements Initializable {
             Slider5.setValue(1);
             Slider6.setValue(1);
             Slider7.setValue(1);
+            Slider8.setValue(1);
+            Slider9.setValue(1);
             updateFilters(); // Обновить значения фильтров
         });
     }
@@ -135,6 +137,8 @@ public class FXMLDocumentController implements Initializable {
         audioPlayer.getEqualizer().getFilter(5).setGain(Slider5.getValue());
         audioPlayer.getEqualizer().getFilter(6).setGain(Slider6.getValue());
         audioPlayer.getEqualizer().getFilter(7).setGain(Slider7.getValue());
+        audioPlayer.getEqualizer().getFilter(8).setGain(Slider8.getValue());
+        audioPlayer.getEqualizer().getFilter(9).setGain(Slider9.getValue());
     }
 
     private void resetSliders() {
@@ -147,6 +151,8 @@ public class FXMLDocumentController implements Initializable {
             Slider5.setValue(1);
             Slider6.setValue(1);
             Slider7.setValue(1);
+            Slider8.setValue(1);
+            Slider9.setValue(1);
             soundSlider.setValue(1);
         });
     }
@@ -235,6 +241,26 @@ public class FXMLDocumentController implements Initializable {
                 audioPlayer.getEqualizer().getFilter(7).setGain(newValue.doubleValue());
             } else {
                 audioPlayer.getEqualizer().getFilterIir(7).setGain(newValue.doubleValue());
+            }
+        });
+
+        Slider8.valueProperty().addListener((observable, oldValue, newValue) -> {
+            String str = String.format("%.3f", (newValue.doubleValue()));
+            Label8.setText(str);
+            if (!AudioPlayer.isIirEnabled) {
+                audioPlayer.getEqualizer().getFilter(8).setGain(newValue.doubleValue());
+            } else {
+                audioPlayer.getEqualizer().getFilterIir(8).setGain(newValue.doubleValue());
+            }
+        });
+
+        Slider9.valueProperty().addListener((observable, oldValue, newValue) -> {
+            String str = String.format("%.3f", (newValue.doubleValue()));
+            Label9.setText(str);
+            if (!AudioPlayer.isIirEnabled) {
+                audioPlayer.getEqualizer().getFilter(8).setGain(newValue.doubleValue());
+            } else {
+                audioPlayer.getEqualizer().getFilterIir(8).setGain(newValue.doubleValue());
             }
         });
     }

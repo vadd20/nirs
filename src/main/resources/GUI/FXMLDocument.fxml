@@ -11,17 +11,19 @@
         <Button fx:id="buttonClose" layoutX="104.0" layoutY="33.0" onAction="#clickClose" prefHeight="40.0" prefWidth="70.0" text="Закрыть" />
 
         <!-- Эквалайзер -->
-        <Label layoutX="18.0" layoutY="83.0" text="Эквалайзер" textFill="#fefefe" />
-        <HBox layoutX="20.0" layoutY="108.0" prefHeight="20" prefWidth="720">
+        <Label layoutX="18.0" layoutY="100.0" text="Эквалайзер" textFill="#fefefe" />
+        <HBox layoutX="20.0" layoutY="120.0" prefHeight="20" prefWidth="900">
             <children>
-                <Label prefWidth="120" text="0-100 гц" textFill="#fefefe" />
-                <Label prefWidth="120" text="100–257  Гц" textFill="#fefefe" />
-                <Label prefWidth="120" text="257–571 Гц" textFill="#fefefe" />
-                <Label prefWidth="120" text="571-1199 Гц" textFill="#fefefe" />
-                <Label prefWidth="120" text="1199–2455 Гц" textFill="#fefefe" />
-                <Label prefWidth="120" text="2455–4967 Гц" textFill="#fefefe" />
-                <Label prefWidth="120" text="4967-9991 Гц" textFill="#fefefe" />
-                <Label prefWidth="120" text="9991–20039 Гц" textFill="#fefefe" />
+                <Label prefWidth="100" text="0-100 гц" textFill="#fefefe" />
+                <Label prefWidth ="100" text="100–139 Гц" textFill="#fefefe" />
+                <Label prefWidth="100" text="139–217 Гц" textFill="#fefefe" />
+                <Label prefWidth="100" text="217-373 Гц" textFill="#fefefe" />
+                <Label prefWidth="100" text="373–685 Гц" textFill="#fefefe" />
+                <Label prefWidth="100" text="685–1309 Гц" textFill="#fefefe" />
+                <Label prefWidth="100" text="1309-2557 Гц" textFill="#fefefe" />
+                <Label prefWidth="100" text="2557–5053 Гц" textFill="#fefefe" />
+                <Label prefWidth="100" text="5053–10045 Гц" textFill="#fefefe" />
+                <Label prefWidth="100" text="10045–20100 Гц" textFill="#fefefe" />
             </children>
         </HBox>
         <!-- Панель слайдеров -->
@@ -42,6 +44,10 @@
                 <Slider fx:id="Slider6" max="1" min="0.00025" orientation="VERTICAL" prefWidth="60" showTickLabels="true" showTickMarks="true" />
                 <Label prefWidth="60" text="" textFill="#fefefe" />
                 <Slider fx:id="Slider7" max="1" min="0.00025" orientation="VERTICAL" prefWidth="60" showTickLabels="true" showTickMarks="true" />
+                <Label prefWidth="60" text="" textFill="#fefefe" />
+                <Slider fx:id="Slider8" max="1" min="0.00025" orientation="VERTICAL" prefWidth="60" showTickLabels="true" showTickMarks="true" />
+                <Label prefWidth="60" text="" textFill="#fefefe" />
+                <Slider fx:id="Slider9" max="1" min="0.00025" orientation="VERTICAL" prefWidth="60" showTickLabels="true" showTickMarks="true" />
             </children>
         </HBox>
         <HBox layoutX="5.0" layoutY="220.0" prefHeight="50" prefWidth="770">
@@ -54,6 +60,8 @@
                 <Label fx:id="Label5" prefWidth="120" textFill="WHITE" />
                 <Label fx:id="Label6" prefWidth="120" textFill="WHITE" />
                 <Label fx:id="Label7" prefWidth="120" textFill="WHITE" />
+                <Label fx:id="Label8" prefWidth="120" textFill="WHITE" />
+                <Label fx:id="Label9" prefWidth="120" textFill="WHITE" />
             </children>
         </HBox>
 

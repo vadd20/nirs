@@ -24,7 +24,7 @@ public class Filter implements Callable<short[]> {
                 if(i - j >= 0)
                     tmp += coffsNumFilter[j] * this.inputSignal[i - j];
             }
-            this.outputSignal[i] += (short) (this.gain * (short)(tmp / 8)); //делим на 8, чтобы не было перегруза на пересечении фильтров
+            this.outputSignal[i] += (short) (this.gain * (short)(tmp / 10)); //делим на 10, чтобы не было перегруза на пересечении фильтров
         }
     }
 

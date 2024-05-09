@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="480" prefWidth="800" style="-fx-background-color: #58b367;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="480" prefWidth="800" style="-fx-background-color: #4CAF50;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.FXMLDocumentController">
     <children>
         <!-- Выбор файла -->
         <Label layoutX="16.0" layoutY="14.0" text="Выберете файл .wav" textFill="#fcfcfc" />
@@ -77,8 +77,8 @@
 
         <!-- Панель эффектов -->
         <Label layoutX="46.0" layoutY="350.0" text="Панель эффектов" textFill="#fefefe" />
-        <CheckBox layoutX="50.0" layoutY="385.0" onAction="#EnvelopeBox" text="Энвелоп" textFill="#fefefe" />
-        <CheckBox layoutX="140.0" layoutY="385.0" onAction="#DelayBox" text="Реверберация" textFill="#fefefe" />
+        <CheckBox layoutX="50.0" layoutY="385.0" onAction="#vibratoBox" text="Вибрато" textFill="#fefefe" />
+        <CheckBox layoutX="140.0" layoutY="385.0" onAction="#reverbBox" text="Реверберация" textFill="#fefefe" />
         <CheckBox layoutX="260.0" layoutY="385.0" onAction="#IirBox" text="Бих Фильтр" textFill="#fefefe" />
     </children>
 </AnchorPane>

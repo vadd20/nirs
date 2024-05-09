@@ -91,24 +91,22 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void DelayBox() {
+    private void reverbBox() {
         System.out.println("Реверберация on/off");
-        audioPlayer.setDelayEnabled(!audioPlayer.isDelayEnabled());
+        audioPlayer.setReverbEnabled(!audioPlayer.isReverbEnabled());
     }
 
     @FXML
-    private void EnvelopeBox() {
-        System.out.println("Енвелоп on/off");
-        if (!this.audioPlayer.EnvelopeIsActive())
-            this.audioPlayer.setEnvelope(true);
-        else this.audioPlayer.setEnvelope(false);
+    private void vibratoBox() {
+        System.out.println("Вибрато on/off");
+        audioPlayer.setVibrato(!audioPlayer.isVibratoActive());
     }
 
     @FXML
     private void IirBox() {
         System.out.println("Change Filter");
         audioPlayer.setIirEnabled(!audioPlayer.isIirEnabled());
-        resetSlidersToDefault(); // Сброс слайдеров к начальным значениям
+        resetSliders(); // Сброс слайдеров к начальным значениям
     }
 
     private void resetSlidersToDefault() {

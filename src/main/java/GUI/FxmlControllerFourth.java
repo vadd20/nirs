@@ -5,10 +5,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.*;
 import javafx.stage.Stage;
+import player.AudioPlayer;
 import player.AudioPlayerFourth;
 
 import java.io.File;
@@ -20,13 +23,30 @@ public class FxmlControllerFourth implements Initializable {
     private AudioPlayerFourth audioPlayer;
     private Thread playThread;
     @FXML
-    private Slider Slider7;
+    private Slider Slider9;
     @FXML
-    private Label Label7;
+    private Label Label9;
+
+    @FXML
+    private RadioButton radioPoor, radioAverage, radioGood;
+    @FXML
+    private ToggleGroup filterGroup;
+    private String selectedFilter = "none"; // По умолчанию
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.listenSliders();
+        filterGroup = new ToggleGroup();
+        radioPoor.setToggleGroup(filterGroup);
+        radioAverage.setToggleGroup(filterGroup);
+        radioGood.setToggleGroup(filterGroup);
+
+        filterGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (filterGroup.getSelectedToggle() != null) {
+                selectedFilter = ((RadioButton) filterGroup.getSelectedToggle()).getText();
+                System.out.println("Selected Filter: " + selectedFilter);
+            }
+        });
     }
 
     @FXML
@@ -44,7 +64,7 @@ public class FxmlControllerFourth implements Initializable {
         playThread = new Thread(() -> {
             System.out.println("PLAY");
             this.resetSliders();
-            this.audioPlayer.play();
+            this.audioPlayer.play(selectedFilter);
         });
         playThread.start();
     }
@@ -55,7 +75,7 @@ public class FxmlControllerFourth implements Initializable {
         if (this.audioPlayer != null) {
             if (this.audioPlayer.getStopStatus()) {
                 playThread = new Thread(() -> {
-                    this.audioPlayer.play();
+                    this.audioPlayer.play(selectedFilter);
                 });
                 playThread.start();
             } else
@@ -92,20 +112,25 @@ public class FxmlControllerFourth implements Initializable {
     @FXML
     private void IirBox() {
         System.out.println("Change Filter");
-
+        audioPlayer.setIirEnabled(!audioPlayer.isIirEnabled());
+        resetSliders();
     }
 
     private void resetSliders() {
         Platform.runLater(() -> {
-            Slider7.setValue(1);
+            Slider9.setValue(1);
         });
     }
 
     private void listenSliders() {
-        Slider7.valueProperty().addListener((observable, oldValue, newValue) -> {
+        Slider9.valueProperty().addListener((observable, oldValue, newValue) -> {
             String str = String.format("%.3f", (newValue.doubleValue()));
-            Label7.setText(str);
-            audioPlayer.getEqualizer().getFilter(7).setGain(newValue.doubleValue());
+            Label9.setText(str);
+            if (!AudioPlayer.isIirEnabled) {
+                audioPlayer.getEqualizer().getFilter(0).setGain(newValue.doubleValue());
+            } else {
+                audioPlayer.getEqualizer().getFilterIir(0).setGain(newValue.doubleValue());
+            }
         });
 
     }

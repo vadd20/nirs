@@ -28,7 +28,7 @@ public class FilterIir implements Callable<short[]> {
         // Проходим по всем элементам входного массива
         for (int i = 0; i < inputLength; i++) {
             // Инициализируем выходное значение текущего элемента
-            double y = 0;
+            double y;
 
             // Проходим по всем секциям фильтра
             for (int j = 1; j < numSections; j += 2) {

@@ -19,27 +19,33 @@ public class AudioPlayerThird {
     private final File currentMusicFile;
     private AudioInputStream audioStream;
     private SourceDataLine sourceDataLine;
-    public static final int BUFF_SIZE = 10000;
+    public static final int BUFF_SIZE = 4096;
     private final byte[] bufferBytes = new byte[BUFF_SIZE];
     private short[] bufferShort = new short[BUFF_SIZE / 2];
     private boolean pauseStatus;
     private boolean stopStatus;
     private double gain;
     private final EqualizerThirdApp equalizer;
-    private final Delay delay;
-    private final Clipping clipping;
+
+    public static boolean isIirEnabled = false;
+
+    public void setIirEnabled(boolean iirEnabled) {
+        isIirEnabled = iirEnabled;
+    }
+
+    public boolean isIirEnabled() {
+        return isIirEnabled;
+    }
 
 
     public AudioPlayerThird(File musicFile) {
         this.currentMusicFile = musicFile;
         this.equalizer = new EqualizerThirdApp();
         this.gain = 1.0;
-        this.delay = new Delay();
-        this.clipping = new Clipping();
     }
 
 
-    public void play() {
+    public void play(String filterLevel) {
         try {
             this.audioStream = AudioSystem.getAudioInputStream(currentMusicFile);
             AudioFormat audioFormat = audioStream.getFormat();
@@ -60,7 +66,7 @@ public class AudioPlayerThird {
                     break;
                 }
 
-                equalizer.setInputSignal(this.bufferShort);
+                equalizer.setInputSignal(this.bufferShort, filterLevel);
                 this.equalizer.equalization();
                 this.bufferShort = equalizer.getOutputSignal();
 

@@ -1,19 +1,19 @@
 package player;
 
-import effect.Delay;
-import effect.Envelope;
+import effect.Reverb;
+import effect.Vibrato;
 import equalizer.Equalizer;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.util.concurrent.ExecutionException;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.File;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.concurrent.ExecutionException;
 
 public class AudioPlayer {
 
@@ -27,13 +27,10 @@ public class AudioPlayer {
     private boolean stopStatus;
     private double gain;
     private final Equalizer equalizer;
-    private final Delay delay;
-    //    private final Clipping clipping;
-    private final Envelope Envelope;
-    private boolean isEnvelope;
-    //    private boolean clippingEnabled = false;
-    private boolean delayEnabled = false;
-    private boolean envelopeEnabled = false;
+    private final Reverb reverb;
+    private final Vibrato vibrato;
+    private boolean isVibrato;
+    private boolean reverbEnabled = false;
     public static boolean isIirEnabled = false;
 
     public void setIirEnabled(boolean iirEnabled) {
@@ -53,50 +50,35 @@ public class AudioPlayer {
         this.currentMusicFile = musicFile;
         this.equalizer = new Equalizer();
         this.gain = 1.0;
-        this.delay = new Delay();
-//        this.clipping = new Clipping();
-        this.isEnvelope = false;
-        this.Envelope = new Envelope();
+        this.reverb = new Reverb();
+        this.isVibrato = false;
+        this.vibrato = new Vibrato();
     }
 
-    public Delay getDelay() {
-        return delay;
+    public Reverb getReverb() {
+        return reverb;
     }
 
-    //    public Clipping getClipping() {
-//        return clipping;
-//    }
-
-
-//    public boolean isClippingEnabled() {
-//        return clippingEnabled;
-//    }
-
-
-//    public void setClippingEnabled(boolean clippingEnabled) {
-//        this.clippingEnabled = clippingEnabled;
-//    }
-
-    private void Envelope(short[] inputSamples) throws ExecutionException,
+    private void Vibrato(short[] inputSamples) throws ExecutionException,
             InterruptedException {
-        this.Envelope.setInputSampleStream(inputSamples);
-        this.Envelope.createEffect();
+        this.vibrato.setInputSampleStream(inputSamples);
+        this.bufferShort = this.vibrato.createEffect();
     }
 
-    public boolean EnvelopeIsActive() {
-        return this.isEnvelope;
+    public boolean isVibratoActive() {
+        return this.isVibrato;
     }
 
-    public void setEnvelope(boolean b) {
-        this.isEnvelope = b;
+    public void setVibrato(boolean b) {
+        this.isVibrato = b;
     }
 
-    public boolean isDelayEnabled() {
-        return delayEnabled;
+    public boolean isReverbEnabled() {
+        return reverbEnabled;
     }
 
-    public void setDelayEnabled(boolean delayEnabled) {
-        this.delayEnabled = delayEnabled;
+    public void setReverbEnabled(boolean reverbEnabled) {
+        this.reverbEnabled = reverbEnabled;
     }
 
     public void play() {
@@ -124,10 +106,10 @@ public class AudioPlayer {
                 this.equalizer.equalization();
                 this.bufferShort = equalizer.getOutputSignal();
 
-                // Применение эффекта задержки
-                if (delayEnabled) {
-                    delay.setInputAudioStream(this.bufferShort);  // Устанавливаем входной поток для Delay
-                    this.bufferShort = delay.createEffect();
+                // Применение эффекта reverb
+                if (reverbEnabled) {
+                    reverb.setInputAudioStream(this.bufferShort);  // Устанавливаем входной поток для Reverberation
+                    this.bufferShort = reverb.createEffect();
                 }
 
 
@@ -136,8 +118,8 @@ public class AudioPlayer {
 //                    this.bufferShort = clipping.applyClipping(this.bufferShort, MAX_AMPLITUDE);
 //                }
 
-                if (this.isEnvelope) {
-                    this.Envelope(this.bufferShort);
+                if (this.isVibrato) {
+                    this.Vibrato(this.bufferShort);
                 }
 
 

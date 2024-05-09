@@ -1,19 +1,17 @@
 package player;
 
-import effect.Clipping;
-import effect.Delay;
 import equalizer.EqualizerFourthApp;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.util.concurrent.ExecutionException;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.File;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.concurrent.ExecutionException;
 
 public class AudioPlayerFourth {
 
@@ -27,20 +25,24 @@ public class AudioPlayerFourth {
     private boolean stopStatus;
     private double gain;
     private final EqualizerFourthApp equalizer;
-    private final Delay delay;
-    private final Clipping clipping;
+    public static boolean isIirEnabled = false;
 
+    public void setIirEnabled(boolean iirEnabled) {
+        isIirEnabled = iirEnabled;
+    }
+
+    public boolean isIirEnabled() {
+        return isIirEnabled;
+    }
 
     public AudioPlayerFourth(File musicFile) {
         this.currentMusicFile = musicFile;
         this.equalizer = new EqualizerFourthApp();
         this.gain = 1.0;
-        this.delay = new Delay();
-        this.clipping = new Clipping();
     }
 
 
-    public void play() {
+    public void play(String filterLevel) {
         try {
             this.audioStream = AudioSystem.getAudioInputStream(currentMusicFile);
             AudioFormat audioFormat = audioStream.getFormat();
@@ -61,7 +63,7 @@ public class AudioPlayerFourth {
                     break;
                 }
 
-                equalizer.setInputSignal(this.bufferShort);
+                equalizer.setInputSignal(this.bufferShort, filterLevel);
                 this.equalizer.equalization();
                 this.bufferShort = equalizer.getOutputSignal();
 

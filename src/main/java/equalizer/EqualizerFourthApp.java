@@ -1,6 +1,7 @@
 package equalizer;
 
 import player.AudioPlayer;
+import player.AudioPlayerFourth;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -38,7 +39,7 @@ public class EqualizerFourthApp {
         } else {
             this.filters[9].settings(inputSignal, FilterInfo.COFFS_NUM_OF_BAND_9_GOOD);
         }
-        this.filtersIir[0].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_0, FilterInfoIIR.COFFS_DEN_OF_BAND_0);
+        this.filtersIir[0].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_0_GOOD, FilterInfoIIR.COFFS_DEN_OF_BAND_0_GOOD);
         this.filtersIir[1].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_1, FilterInfoIIR.COFFS_DEN_OF_BAND_1);
         this.filtersIir[2].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_2, FilterInfoIIR.COFFS_DEN_OF_BAND_2);
         this.filtersIir[3].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_3, FilterInfoIIR.COFFS_DEN_OF_BAND_3);
@@ -47,8 +48,13 @@ public class EqualizerFourthApp {
         this.filtersIir[6].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_6, FilterInfoIIR.COFFS_DEN_OF_BAND_6);
         this.filtersIir[7].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_7, FilterInfoIIR.COFFS_DEN_OF_BAND_7);
         this.filtersIir[8].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_8, FilterInfoIIR.COFFS_DEN_OF_BAND_8);
-        this.filtersIir[9].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_9, FilterInfoIIR.COFFS_DEN_OF_BAND_9);
-
+        if (filterLevel.equals("Bad")) {
+            this.filtersIir[9].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_9_BAD, FilterInfoIIR.COFFS_DEN_OF_BAND_9_BAD);
+        } else if (filterLevel.equals("Medium")) {
+            this.filtersIir[9].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_9_MEDIUM, FilterInfoIIR.COFFS_DEN_OF_BAND_9_MEDIUM);
+        } else {
+            this.filtersIir[9].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_9, FilterInfoIIR.COFFS_DEN_OF_BAND_9);
+        }
     }
 
     private void createFilters() {
@@ -63,7 +69,7 @@ public class EqualizerFourthApp {
     public void equalization() throws InterruptedException, ExecutionException {
         Future<short[]>[] fs = new Future[FilterInfo.COUNT_OF_BANDS];
         for (int i = 0; i < FilterInfo.COUNT_OF_BANDS; i++) {
-            if (!AudioPlayer.isIirEnabled) {
+            if (!AudioPlayerFourth.isIirEnabled) {
                 fs[i] = pool.submit(this.filters[i]);
             } else {
                 fs[i] = pool.submit(this.filtersIir[i]);

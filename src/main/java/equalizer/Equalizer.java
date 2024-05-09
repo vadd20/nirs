@@ -31,7 +31,7 @@ public class Equalizer {
         this.filters[7].settings(inputSignal, FilterInfo.COFFS_NUM_OF_BAND_7);
         this.filters[8].settings(inputSignal, FilterInfo.COFFS_NUM_OF_BAND_8);
         this.filters[9].settings(inputSignal, FilterInfo.COFFS_NUM_OF_BAND_9_GOOD);
-        this.filtersIir[0].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_0, FilterInfoIIR.COFFS_DEN_OF_BAND_0);
+        this.filtersIir[0].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_0_GOOD, FilterInfoIIR.COFFS_DEN_OF_BAND_0_GOOD);
         this.filtersIir[1].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_1, FilterInfoIIR.COFFS_DEN_OF_BAND_1);
         this.filtersIir[2].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_2, FilterInfoIIR.COFFS_DEN_OF_BAND_2);
         this.filtersIir[3].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_3, FilterInfoIIR.COFFS_DEN_OF_BAND_3);
@@ -57,7 +57,6 @@ public class Equalizer {
         Future<short[]>[] fs = new Future[FilterInfo.COUNT_OF_BANDS];
 
         for (int i = 0; i < FilterInfo.COUNT_OF_BANDS; i++) {
-            System.out.println(!AudioPlayer.isIirEnabled);
             System.out.println();
             if (!AudioPlayer.isIirEnabled) {
                 fs[i] = pool.submit(this.filters[i]);

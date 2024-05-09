@@ -126,7 +126,7 @@ public class FxmlControllerThird implements Initializable {
         Slider0.valueProperty().addListener((observable, oldValue, newValue) -> {
             String str = String.format("%.3f", (newValue.doubleValue()));
             Label0.setText(str);
-            if (!AudioPlayer.isIirEnabled) {
+            if (!AudioPlayerThird.isIirEnabled) {
                 audioPlayer.getEqualizer().getFilter(0).setGain(newValue.doubleValue());
             } else {
                 audioPlayer.getEqualizer().getFilterIir(0).setGain(newValue.doubleValue());

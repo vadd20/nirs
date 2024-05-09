@@ -7,11 +7,11 @@ public class FilterIir implements Callable<short[]> {
     private short[] outputSignal;
     private double[] feedbackSignal;
     private double gain;
-    private double[][] coffsNumFilter;
-    private double[][] coffsDenFilter;
+    private double[] coffsNumFilter;
+    private double[] coffsDenFilter;
     private int count_coffs;
 
-    public void settings(final short[] inputSignal, final double[][] coffsNumFilter, final double[][] coffsDenFilter) {
+    public void settings(final short[] inputSignal, final double[] coffsNumFilter, final double[] coffsDenFilter) {
         this.inputSignal = inputSignal;
         this.coffsNumFilter = coffsNumFilter;
         this.coffsDenFilter = coffsDenFilter;
@@ -22,38 +22,17 @@ public class FilterIir implements Callable<short[]> {
     }
 
     private void convolution() {
-        int numSections = this.count_coffs;
-        int inputLength = this.inputSignal.length;
-
-        // Проходим по всем элементам входного массива
-        for (int i = 0; i < inputLength; i++) {
-            // Инициализируем выходное значение текущего элемента
-            double y;
-
-            // Проходим по всем секциям фильтра
-            for (int j = 1; j < numSections; j += 2) {
-                // Получаем коэффициенты для текущей секции
-                double b0 = this.coffsNumFilter[j][0];
-                double b1 = this.coffsNumFilter[j][1];
-                double b2 = this.coffsNumFilter[j][2];
-                double a0 = this.coffsDenFilter[j][0];
-                double a1 = this.coffsDenFilter[j][1];
-                double a2 = this.coffsDenFilter[j][2];
-
-                // Вычисляем выходное значение текущей секции
-                if (i >= 2) {
-                    y = b0 * this.inputSignal[i] + b1 * this.inputSignal[i - 1] + b2 * this.inputSignal[i - 2]
-                            - a1 * this.outputSignal[i - 1] - a2 * this.outputSignal[i - 2];
-                } else if (i == 1) {
-                    y = b0 * this.inputSignal[i] + b1 * this.inputSignal[i - 1]
-                            - a1 * this.outputSignal[i - 1];
-                } else {
-                    y = b0 * this.inputSignal[i];
+        double tmp;
+        for(int i = 0; i <  this.inputSignal.length; i++) {
+            tmp = 0;
+            for(int j = 0; j < this.count_coffs; j++) {
+                if (i - j >= 0) {
+                    tmp += coffsNumFilter[j] * this.inputSignal[i - j];
+                    tmp -= this.coffsDenFilter[j] * this.feedbackSignal[i - j];
                 }
-
-                // Обновляем выходное значение для текущего элемента
-                this.outputSignal[i] += this.gain * (short)(y / numSections / 6);
             }
+            this.feedbackSignal[i] = tmp;
+            this.outputSignal[i] += (short) (this.gain * (short)(tmp / 10)); //делим на 10, чтобы не было перегруза на пересечении фильтров
         }
     }
 

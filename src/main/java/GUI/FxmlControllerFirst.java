@@ -11,28 +11,26 @@ import javafx.stage.Stage;
 import player.AudioPlayerFirst;
 
 public class FxmlControllerFirst implements Initializable {
-
     private AudioPlayerFirst audioPlayer;
     private Thread playThread;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        // Пустой метод инициализации, не требуется дополнительных действий при загрузке FXML файла
     }
 
-    @FXML
-    private void open() {
-        //Выбор файлов формата wav
+    // Метод для открытия аудиофайла и запуска его воспроизведения
+    @FXML private void open() {
+        // Открытие диалогового окна выбора файла
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
-        fileChooser.getExtensionFilters().addAll(
-                new ExtensionFilter("Audio Files", "*.wav"));
+        fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Audio Files", "*.wav"));
         File selectedFile = fileChooser.showOpenDialog(new Stage());
 
-        if (selectedFile == null) {
-            return;
-        }
+        // Проверка, был ли выбран файл
+        if (selectedFile == null) return;
 
+        // Создание объекта AudioPlayerFirst для выбранного файла и запуск потока воспроизведения
         this.audioPlayer = new AudioPlayerFirst(selectedFile);
         playThread = new Thread(() -> {
             System.out.println("PLAY");
@@ -41,46 +39,52 @@ public class FxmlControllerFirst implements Initializable {
         playThread.start();
     }
 
-    @FXML
-    private void play() {
+    // Метод для продолжения воспроизведения аудиофайла
+    @FXML private void play() {
+        // Вывод сообщения о начале воспроизведения
         System.out.println("PLAY");
+        // Проверка, существует ли объект audioPlayer и был ли он остановлен
         if (this.audioPlayer != null) {
             if (this.audioPlayer.isStopped()) {
+                // Если аудиофайл был остановлен, воспроизведение начинается с начала
                 this.audioPlayer.setStopped(false);
                 playThread = new Thread(() -> this.audioPlayer.play());
                 playThread.start();
             } else {
+                // Если аудиофайл на паузе, воспроизведение продолжается с места остановки
                 this.audioPlayer.setPaused(false);
                 this.audioPlayer.resume();
             }
         }
     }
 
-    @FXML
-    private void pause() {
+    // Метод для приостановки воспроизведения аудиофайла
+    @FXML private void pause() {
+        // Вывод сообщения о приостановке воспроизведения
         System.out.println("PAUSE");
-        if (this.audioPlayer != null) {
-            this.audioPlayer.setPaused(true);
-        }
+        // Проверка, существует ли объект audioPlayer
+        if (this.audioPlayer != null) this.audioPlayer.setPaused(true);
     }
 
-    @FXML
-    private void stop() {
+    // Метод для остановки воспроизведения аудиофайла
+    @FXML private void stop() {
+        // Вывод сообщения о остановке воспроизведения
         System.out.println("STOP");
-        if (this.audioPlayer != null) {
-            this.audioPlayer.setStopped(true);
-        }
+        // Проверка, существует ли объект audioPlayer
+        if (this.audioPlayer != null) this.audioPlayer.setStopped(true);
     }
 
-    @FXML
-    private void clickClose() {
+    // Метод для закрытия ресурсов и завершения программы
+    @FXML private void clickClose() {
+        // Проверка, существует ли объект audioPlayer
         if (this.audioPlayer != null) {
-            if (this.playThread != null) {
-                this.playThread.interrupt();
-            }
+            // Проверка, существует ли поток воспроизведения и прерывание его работы
+            if (this.playThread != null) this.playThread.interrupt();
+            // Закрытие ресурсов аудиофайла
             this.audioPlayer.closeResources();
         }
-
+        // Завершение программы
         System.exit(0);
     }
 }
+

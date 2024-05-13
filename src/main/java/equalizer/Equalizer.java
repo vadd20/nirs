@@ -57,7 +57,6 @@ public class Equalizer {
         Future<short[]>[] fs = new Future[FilterInfo.COUNT_OF_BANDS];
 
         for (int i = 0; i < FilterInfo.COUNT_OF_BANDS; i++) {
-            System.out.println();
             if (!AudioPlayer.isIirEnabled) {
                 fs[i] = pool.submit(this.filters[i]);
             } else {

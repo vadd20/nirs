@@ -2,7 +2,7 @@ package effect;
 
 public class Vibrato extends Effect {
     private static final double DEFAULT_DEPTH = 0.005; // Глубина модуляции (в долях частоты)
-    private static final double DEFAULT_RATE = 3.0; // Скорость модуляции в Гц
+    private static final double DEFAULT_RATE = 5.0; // Скорость модуляции в Гц
 
     private double depth = DEFAULT_DEPTH;
     private double rate = DEFAULT_RATE;

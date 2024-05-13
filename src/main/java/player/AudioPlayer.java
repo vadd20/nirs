@@ -20,7 +20,7 @@ public class AudioPlayer {
     private final File currentMusicFile;
     private AudioInputStream audioStream;
     private SourceDataLine sourceDataLine;
-    public static final int BUFF_SIZE = 100000;
+    public static final int BUFF_SIZE = 1000000;
     private final byte[] bufferBytes = new byte[BUFF_SIZE];
     private short[] bufferShort = new short[BUFF_SIZE / 2];
     private boolean pauseStatus;
@@ -112,16 +112,9 @@ public class AudioPlayer {
                     this.bufferShort = reverb.createEffect();
                 }
 
-
-//                // Применение эффекта клиппинга
-//                if (clippingEnabled) { // clippingEnabled проверяет состояние соответствующего чекбокса
-//                    this.bufferShort = clipping.applyClipping(this.bufferShort, MAX_AMPLITUDE);
-//                }
-
                 if (this.isVibrato) {
                     this.Vibrato(this.bufferShort);
                 }
-
 
                 this.ShortArrayToByteArray();
                 this.sourceDataLine.write(this.bufferBytes, 0, this.bufferBytes.length);

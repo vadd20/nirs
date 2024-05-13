@@ -18,7 +18,6 @@ public class FilterIir implements Callable<short[]> {
         this.outputSignal = new short[inputSignal.length];
         this.count_coffs = coffsNumFilter.length;
         this.feedbackSignal =  new double[inputSignal.length];
-
     }
 
     private void convolution() {

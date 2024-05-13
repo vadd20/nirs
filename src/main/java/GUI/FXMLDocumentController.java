@@ -105,8 +105,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void IirBox() {
         System.out.println("Change Filter");
-        audioPlayer.setIirEnabled(!audioPlayer.isIirEnabled());
-        resetSliders(); // Сброс слайдеров к начальным значениям
+//        audioPlayer.setIirEnabled(!audioPlayer.isIirEnabled());
+//        resetSlidersToDefault(); // Сброс слайдеров к начальным значениям
     }
 
     private void resetSlidersToDefault() {

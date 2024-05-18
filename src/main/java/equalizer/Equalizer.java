@@ -11,7 +11,7 @@ public class Equalizer {
     private short[] outputSignal;
     private Filter[] filters;
     private FilterIir[] filtersIir;
-    private final static char COUNT_OF_THREADS = 4;
+    private final static char COUNT_OF_THREADS = 10;
     ExecutorService pool;
 
     public Equalizer() {

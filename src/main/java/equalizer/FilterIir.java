@@ -21,19 +21,27 @@ public class FilterIir implements Callable<short[]> {
     }
 
     private void convolution() {
+        // Инициализация временной переменной для хранения промежуточных результатов свертки.
         double tmp;
+        // Проходим по всем элементам входного сигнала.
         for(int i = 0; i <  this.inputSignal.length; i++) {
             tmp = 0;
+            // Выполняем свертку для каждого элемента входного сигнала.
             for(int j = 0; j < this.count_coffs; j++) {
+                // Проверяем, что задержка от обратной связи не приводит к отрицательному индексу.
                 if (i - j >= 0) {
+                    // Вычисляем свертку с учетом коэффициентов фильтра и обратной связи.
                     tmp += coffsNumFilter[j] * this.inputSignal[i - j];
                     tmp -= this.coffsDenFilter[j] * this.feedbackSignal[i - j];
                 }
             }
+            // Сохраняем результат свертки в обратную связь для использования на следующем шаге.
             this.feedbackSignal[i] = tmp;
-            this.outputSignal[i] += (short) (this.gain * (short)(tmp / 10)); //делим на 10, чтобы не было перегруза на пересечении фильтров
+            // Применяем коэффициент усиления к результату свертки и добавляем его к выходному сигналу.
+            this.outputSignal[i] += (short) (this.gain * (short)(tmp / 10)); // Делим на 10, чтобы избежать перегрузки на пересечении фильтров.
         }
     }
+
 
     public void setGain(double gain) {
         this.gain = gain;

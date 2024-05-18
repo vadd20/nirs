@@ -40,9 +40,9 @@ public class EqualizerThirdApp {
         this.filters[8].settings(inputSignal, FilterInfo.COFFS_NUM_OF_BAND_8);
         this.filters[9].settings(inputSignal, FilterInfo.COFFS_NUM_OF_BAND_9_GOOD);
         if (filterLevel.equals("Bad")) {
-//            this.filtersIir[0].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_0_BAD, FilterInfoIIR.COFFS_DEN_OF_BAND_0_BAD);
+            this.filtersIir[0].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_0_BAD, FilterInfoIIR.COFFS_DEN_OF_BAND_0_BAD);
         } else if (filterLevel.equals("Medium")) {
-//            this.filtersIir[0].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_0_MEDIUM, FilterInfoIIR.COFFS_DEN_OF_BAND_0_MEDIUM);
+            this.filtersIir[0].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_0_MEDIUM, FilterInfoIIR.COFFS_DEN_OF_BAND_0_MEDIUM);
         } else {
             this.filtersIir[0].settings(inputSignal, FilterInfoIIR.COFFS_NUM_OF_BAND_0_GOOD, FilterInfoIIR.COFFS_DEN_OF_BAND_0_GOOD);
         }
